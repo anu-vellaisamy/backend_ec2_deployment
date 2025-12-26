@@ -95,8 +95,8 @@ const getUserById = async (req, res) => {
 const updateUser = async (req, res) => {
 
     try {
-        const getUser = await User.findByIdAndUpdate(req.params.id,
-            { $set: req.body }, { new: true });
+        const updatedUser =  User.findByIdAndUpdate(req.params.id,
+            { $set: req.body }, { new: true, select: '-password'});
 
         if (!getUser) {
             return res.status(400).json({
@@ -104,11 +104,11 @@ const updateUser = async (req, res) => {
                 message: "User not indentified"
             })
         }
-        const findUpdatedUser = User.findById(req.params.id).select('-password');
-        return res.status(400).json({
+        // const findUpdatedUser = User.findById(req.params.id).select('-password');
+        return res.status(200).json({
             success: true,
             message: "User updated successfully",
-            updatedData: findUpdatedUser
+            updatedData: updatedUser
         })
     } catch (e) {
         return res.status(404).json({
