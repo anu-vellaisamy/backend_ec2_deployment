@@ -1,4 +1,4 @@
-const {body, validationResult} = required("express-validator");
+const {body, validationResult} = require("express-validator");
 
 const registerValidation = [
   body('email').isEmail().withMessage('Valid email required'),
